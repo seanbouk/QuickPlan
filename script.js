@@ -1,3 +1,5 @@
+import ScheduleManager from './schedule-manager.js';
+
 $(document).ready(function() {
     const updateTableHeaders = function(startDate) {
         const headers = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -9,9 +11,14 @@ $(document).ready(function() {
         }
     };
 
-    const updateSchedule = function(weekOffset) {
+    const getMonday = function(weekOffset) {
         const startDate = new Date();
         startDate.setDate(startDate.getDate() - startDate.getDay() + 1 + (weekOffset * 7)); // Adjust to Monday of the desired week
+        return startDate
+    }
+
+    const updateSchedule = function(weekOffset) {
+        const startDate = getMonday(weekOffset);
         const weekYear = getWeekNumber(startDate);
         $('#weekInfo').text(`Week ${weekYear.week} of ${weekYear.year}`);
         updateTableHeaders(startDate);
@@ -62,4 +69,48 @@ $(document).ready(function() {
         weekOffset++;
         updateSchedule(weekOffset);
     });
+
+    // Initialize ScheduleManager with 18 events per day
+    const scheduleManager = new ScheduleManager(18);
+
+    // Example: Adding a week starting from a specific date
+    const weekStartDate = getMonday(weekOffset);
+    scheduleManager.addWeek(weekStartDate);
+
+    // Set event names as provided in your example
+    const eventNames = [
+        "AM - Ops 1", "AM - Ops 2", "AM - Ops 3", "AM - Consults 1", "AM - Consults 2",
+        "AM - Consults 3", "AM - Consults 4", "AM - Consults 5", "AM - Consults 6",
+        "PM - Ops 1", "PM - Ops 2", "PM - Ops 3", "PM - Consults 1", "PM - Consults 2",
+        "PM - Consults 3", "PM - Consults 4", "PM - Consults 5", "PM - Consults 6"
+    ];
+
+    // Initializing events for a week with names
+    for (let i = 0; i < 7; i++) {
+        const day = new Date(weekStartDate);
+        day.setDate(day.getDate() + i);
+        const dayKey = day.toISOString().split('T')[0];
+
+        scheduleManager.schedule[dayKey].forEach((event, index) => {
+            event.name = eventNames[index % eventNames.length];
+        });
+    }
+
+    // PDSA staff
+    scheduleManager.addEmployee("RW");
+    scheduleManager.addEmployee("ND");
+    scheduleManager.addEmployee("AB");
+    scheduleManager.addEmployee("HC");
+    scheduleManager.addEmployee("KW");
+    scheduleManager.addEmployee("DC");
+    scheduleManager.addEmployee("MI");
+    scheduleManager.addEmployee("SBC");
+    scheduleManager.addEmployee("JW");
+    scheduleManager.addEmployee("JB");
+    scheduleManager.addEmployee("RT");
+
+    // PDSA Setup
+    scheduleManager.assignEvent('2024-03-18', 0, 'John Doe');
+    scheduleManager.assignEvent('2024-03-18', 1, 'RT');
+    console.log(scheduleManager.serializeSchedule());
 });
