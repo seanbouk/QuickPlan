@@ -17,6 +17,23 @@ $(document).ready(function() {
         return startDate
     }
 
+    const fillTableWithWeekData = function(weekStartDate) {
+        const weekData = scheduleManager.getWeekData(weekStartDate);
+        const tbody = $('#schedule tbody');
+        
+        let dayIndex = 0;
+        Object.keys(weekData).forEach(date => {
+            if (dayIndex < 5) { // Only Monday to Friday
+                weekData[date].forEach((event, eventIndex) => {
+                    const cellSelector = `tr:eq(${eventIndex + 1}) td:eq(${dayIndex + 1})`;
+                    const eventText = event.assignedTo ? `${event.assignedTo}` : "";
+                    $(cellSelector).text(eventText);
+                });
+                dayIndex++;
+            }
+        });
+    };
+
     const updateSchedule = function(weekOffset) {
         const startDate = getMonday(weekOffset);
         const weekYear = getWeekNumber(startDate);
@@ -38,6 +55,8 @@ $(document).ready(function() {
 
             tbody.append(tr);
         }
+
+        fillTableWithWeekData(startDate);
     };
 
     const getWeekNumber = function(d) {
@@ -58,7 +77,6 @@ $(document).ready(function() {
     };
 
     let weekOffset = 0;
-    updateSchedule(weekOffset);
 
     $('#prevWeek').click(function() {
         weekOffset--;
@@ -110,7 +128,11 @@ $(document).ready(function() {
     scheduleManager.addEmployee("RT");
 
     // PDSA Setup
-    scheduleManager.assignEvent('2024-03-18', 0, 'John Doe');
+    scheduleManager.assignEvent('2024-03-18', 0, 'RW');
     scheduleManager.assignEvent('2024-03-18', 1, 'RT');
-    console.log(scheduleManager.serializeSchedule());
+    scheduleManager.assignEvent('2024-03-18', 2, 'KW');
+    //console.log(scheduleManager.serializeSchedule());
+
+    
+    updateSchedule(weekOffset);
 });
