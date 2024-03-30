@@ -45,11 +45,10 @@ $(document).ready(function() {
         const tbody = $('#schedule tbody');
         tbody.empty(); // Clear previous rows
 
-        for (let row = 0; row < 18; row++) {
+        for (let row = 0; row < eventNames.length; row++) {
             const tr = $('<tr></tr>');
-            const session = row < 9 ? 'AM' : 'PM';
-            const type = row % 9 < 3 ? 'Ops' : 'Consults';
-            tr.append(`<td>${session} - ${type}</td>`);
+
+            tr.append(`<td>${eventNames[row]}</td>`);
 
             for (let day = 0; day < 5; day++) {
                 tr.append(`<td></td>`); // Dates are shown in headers now
@@ -102,7 +101,7 @@ $(document).ready(function() {
         "AM - Ops 1", "AM - Ops 2", "AM - Ops 3", "AM - Consults 1", "AM - Consults 2",
         "AM - Consults 3", "AM - Consults 4", "AM - Consults 5", "AM - Consults 6",
         "PM - Ops 1", "PM - Ops 2", "PM - Ops 3", "PM - Consults 1", "PM - Consults 2",
-        "PM - Consults 3", "PM - Consults 4", "PM - Consults 5", "PM - Consults 6"
+        "PM - Consults 3", "PM - Consults 4", "PM - Consults 5", "PM - Consults 6", "Holiday 1", "Holiday 2" 
     ];
 
     // Initializing events for a week with names
