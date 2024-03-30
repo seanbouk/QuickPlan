@@ -99,9 +99,9 @@ $(document).ready(function() {
     // Set event names as provided in your example
     const eventNames = [
         "0820-0830", 
-        "AM Consult 1", "AM Consult 2", "AM Consult 3", "AM Consult 4", "AM Consult 1",
+        "AM Consult 1", "AM Consult 2", "AM Consult 3", "AM Consult 4", "AM Consult 5",
         "AM Ops 1", "AM Ops 2", "AM Ops 3",
-        "PM Consult 1", "PM Consult 2", "PM Consult 3", "PM Consult 4", "PM Consult 1",
+        "PM Consult 1", "PM Consult 2", "PM Consult 3", "PM Consult 4", "PM Consult 5",
         "PM Ops 1", "PM Ops 2", "PM Ops 3",
         "1800-1815",
         "Huddersfield 1", "Huddersfield 2",
