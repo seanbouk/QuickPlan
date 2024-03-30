@@ -98,10 +98,14 @@ $(document).ready(function() {
 
     // Set event names as provided in your example
     const eventNames = [
-        "AM - Ops 1", "AM - Ops 2", "AM - Ops 3", "AM - Consults 1", "AM - Consults 2",
-        "AM - Consults 3", "AM - Consults 4", "AM - Consults 5", "AM - Consults 6",
-        "PM - Ops 1", "PM - Ops 2", "PM - Ops 3", "PM - Consults 1", "PM - Consults 2",
-        "PM - Consults 3", "PM - Consults 4", "PM - Consults 5", "PM - Consults 6", "Holiday 1", "Holiday 2" 
+        "0820-0830", 
+        "AM Consult 1", "AM Consult 2", "AM Consult 3", "AM Consult 4", "AM Consult 1",
+        "AM Ops 1", "AM Ops 2", "AM Ops 3",
+        "PM Consult 1", "PM Consult 2", "PM Consult 3", "PM Consult 4", "PM Consult 1",
+        "PM Ops 1", "PM Ops 2", "PM Ops 3",
+        "1800-1815",
+        "Huddersfield 1", "Huddersfield 2",
+        "Off 1", "Off 2", "Off 3", "Off 4"
     ];
 
     // Initializing events for a week with names
