@@ -9,7 +9,24 @@ class ScheduleManager {
         this.employees.push(employeeName);
     }
 
-    addWeek(weekStartDate) {
+    getPreviousMonday(date) {
+        const dayOfWeek = date.getDay();
+    
+        if (dayOfWeek === 1) {
+            return new Date(date);
+        }
+    
+        const diffToMonday = dayOfWeek - 1;
+        const millisecondsInDay = 1000 * 60 * 60 * 24;
+        const millisecondsToSubtract = diffToMonday * millisecondsInDay;
+    
+        const previousMonday = new Date(date.getTime() - millisecondsToSubtract);
+        
+        return previousMonday;
+    }
+
+    addWeek(date) {
+        const weekStartDate = this.getPreviousMonday(new Date(date));
         for (let i = 0; i < 7; i++) {
             const day = new Date(weekStartDate);
             day.setDate(day.getDate() + i);
@@ -51,10 +68,13 @@ class ScheduleManager {
     }
 
     assignEvent(date, eventIndex, employeeName) {
-        //console.log(this.employees);
-        if (!this.schedule[date] || !this.employees.includes(employeeName)) {
-            console.log('Invalid date or employee name', date, employeeName);
+        if (!this.employees.includes(employeeName)) {
+            console.log('Invalid employee name', date, employeeName);
             return;
+        }
+
+        if (!this.schedule[date]) {
+            this.addWeek(date);
         }
 
         const event = this.schedule[date].find(event => event.index === eventIndex);

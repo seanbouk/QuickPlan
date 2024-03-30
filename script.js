@@ -24,11 +24,13 @@ $(document).ready(function() {
         let dayIndex = 0;
         Object.keys(weekData).forEach(date => {
             if (dayIndex < 5) { // Only Monday to Friday
-                weekData[date].forEach((event, eventIndex) => {
-                    const cellSelector = `tr:eq(${eventIndex + 1}) td:eq(${dayIndex + 1})`;
-                    const eventText = event.assignedTo ? `${event.assignedTo}` : "";
-                    $(cellSelector).text(eventText);
-                });
+                if(weekData[date]) {
+                    weekData[date].forEach((event, eventIndex) => {
+                        const cellSelector = `tr:eq(${eventIndex + 1}) td:eq(${dayIndex + 1})`;
+                        const eventText = event.assignedTo ? `${event.assignedTo}` : "";
+                        $(cellSelector).text(eventText);
+                    });
+                }
                 dayIndex++;
             }
         });
@@ -128,9 +130,9 @@ $(document).ready(function() {
     scheduleManager.addEmployee("RT");
 
     // PDSA Setup
-    scheduleManager.assignEvent('2024-03-18', 0, 'RW');
-    scheduleManager.assignEvent('2024-03-18', 1, 'RT');
-    scheduleManager.assignEvent('2024-03-18', 2, 'KW');
+    scheduleManager.assignEvent('2024-03-19', 0, 'RW');
+    scheduleManager.assignEvent('2024-03-19', 1, 'RT');
+    scheduleManager.assignEvent('2024-03-19', 2, 'KW');
     //console.log(scheduleManager.serializeSchedule());
 
     
