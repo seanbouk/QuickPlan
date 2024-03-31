@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quick Plan</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="module" src="script.js" defer></script>
-</head>
-<body>
-    <div id="header">
-        <button id="prevWeek">Previous</button>
-        <span id="weekInfo"></span>
-        <button id="nextWeek">Next</button>
-    </div>
-    <table id="schedule">
-        <thead>
-            <tr>
-                <th></th> <!-- Extra column for labels -->
-                <th class="day-1">Monday</th>
-                <th class="day-2">Tuesday</th>
-                <th class="day-3">Wednesday</th>
-                <th class="day-4">Thursday</th>
-                <th class="day-5">Friday</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be added by script.js -->
-        </tbody>
-    </table>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Quick Plan</title>
+        <link rel="stylesheet" href="main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="module" src="script.js" defer></script>
+    </head>
+    <body>
+        <div id="header">
+            <button id="prevWeek">Previous</button>
+            <span id="weekInfo"></span>
+            <button id="nextWeek">Next</button>
+        </div>
+        <div class="container">
+            <ol id="players">
+                <!-- Rows will be added by script.js -->
+            </ol>
+            <table id="schedule">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Extra column for labels -->
+                        <th class="day-1">Monday</th>
+                        <th class="day-2">Tuesday</th>
+                        <th class="day-3">Wednesday</th>
+                        <th class="day-4">Thursday</th>
+                        <th class="day-5">Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added by script.js -->
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>

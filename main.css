@@ -21,3 +21,16 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+.container {
+    display: flex;
+    justify-content: start;
+}
+
+ol, #schedule {
+    margin: 10px;
+}
+
+.highlighted {
+    background-color: yellow; /* Choose your highlight color */
+}

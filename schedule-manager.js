@@ -68,16 +68,33 @@ class ScheduleManager {
     }
 
     assignEvent(date, eventIndex, employeeName) {
-        if (!this.employees.includes(employeeName)) {
-            console.log('Invalid employee name', date, employeeName);
+        // Attempt to create a Date object from the input date
+        const dateObj = new Date(date);
+        
+        // Check if the date is valid
+        if (isNaN(dateObj.getTime())) {
+            console.log('Invalid date format');
             return;
         }
-
-        if (!this.schedule[date]) {
-            this.addWeek(date);
+        
+        // Ensure month and day are formatted as two digits
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        
+        // Reformat date to YYYY-MM-DD
+        const formattedDate = `${dateObj.getFullYear()}-${month}-${day}`;
+        
+        // Use the formatted date for the rest of the function
+        if (!this.employees.includes(employeeName)) {
+            console.log('Invalid employee name', formattedDate, employeeName);
+            return;
         }
-
-        const event = this.schedule[date].find(event => event.index === eventIndex);
+    
+        if (!this.schedule[formattedDate]) {
+            this.addWeek(formattedDate);
+        }
+    
+        const event = this.schedule[formattedDate].find(event => event.index === eventIndex);
         if (event) {
             event.assignedTo = employeeName;
         } else {

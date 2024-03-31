@@ -77,6 +77,11 @@ $(document).ready(function() {
         return { week: weekNumber, year: weekYear };
     };
 
+    function addEmployee(name) {
+        scheduleManager.addEmployee(name); // Add to the schedule manager
+        $('#players').append(`<li>${name}</li>`); // Add to the ordered list
+    }
+
     let weekOffset = 0;
 
     $('#prevWeek').click(function() {
@@ -89,12 +94,54 @@ $(document).ready(function() {
         updateSchedule(weekOffset);
     });
 
-    // Initialize ScheduleManager with 18 events per day
-    const scheduleManager = new ScheduleManager(18);
+    $(document).keydown(function(e) {
+        let index = -1; // Default to an invalid index
 
-    // Example: Adding a week starting from a specific date
-    const weekStartDate = getMonday(weekOffset);
-    scheduleManager.addWeek(weekStartDate);
+        if (e.key >= 1 && e.key <= 9) {
+            // For numbers 1-9, directly map keys to list item indices (subtract 1 for zero-based indexing)
+            index = e.key - 1;
+        } else if (e.key === '0') {
+            // Map '0' to the 10th item
+            index = 9;
+        } else if (e.key === '-') {
+            // Map '-' to the 11th item
+            index = 10;
+        } else if (e.key === '=') {
+            // Map '=' to the 12th item
+            index = 11;
+        }
+
+        if (index !== -1 && index < $('#players li').length) {
+            // Remove highlighting from all list items
+            $('#players li').removeClass('highlighted');
+
+            // Highlight the corresponding list item
+            $('#players li').eq(index).addClass('highlighted');
+        }
+    });
+
+    $('#schedule').on('click', 'td', function() {
+        // Get the text of the currently highlighted list item
+        const highlightedText = $('#players .highlighted').text();
+
+        // Check if clicked cell is in the leftmost column and there's highlighted text
+        if ($(this).index() === 0 && highlightedText) {
+            // Fill all cells to the right in the same row with the highlighted text
+            for (let i = 0; i < 5; i++){
+                const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                startDate.setDate(startDate.getDate()+i);
+                scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+            }
+            updateSchedule(weekOffset);
+        }
+        // Ensure the clicked cell is not in the leftmost column
+        else if ($(this).index() !== 0) {
+            const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+            startDate.setDate(startDate.getDate()+$(this).index()-1);
+            scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+            updateSchedule(weekOffset);
+        }
+    });
 
     // Set event names as provided in your example
     const eventNames = [
@@ -108,6 +155,13 @@ $(document).ready(function() {
         "Off 1", "Off 2", "Off 3", "Off 4"
     ];
 
+    // Initialize ScheduleManager with 18 events per day
+    const scheduleManager = new ScheduleManager(eventNames.length);
+
+    // Example: Adding a week starting from a specific date
+    const weekStartDate = getMonday(weekOffset);
+    scheduleManager.addWeek(weekStartDate);
+
     // Initializing events for a week with names
     for (let i = 0; i < 7; i++) {
         const day = new Date(weekStartDate);
@@ -120,22 +174,23 @@ $(document).ready(function() {
     }
 
     // PDSA staff
-    scheduleManager.addEmployee("RW");
-    scheduleManager.addEmployee("ND");
-    scheduleManager.addEmployee("AB");
-    scheduleManager.addEmployee("HC");
-    scheduleManager.addEmployee("KW");
-    scheduleManager.addEmployee("DC");
-    scheduleManager.addEmployee("MI");
-    scheduleManager.addEmployee("SBC");
-    scheduleManager.addEmployee("JW");
-    scheduleManager.addEmployee("JB");
-    scheduleManager.addEmployee("RT");
+    addEmployee("RW");
+    addEmployee("ND");
+    addEmployee("AB");
+    addEmployee("HC");
+    addEmployee("KW");
+    addEmployee("DC");
+    addEmployee("MI");
+    addEmployee("SBC");
+    addEmployee("JW");
+    addEmployee("JB");
+    addEmployee("RT");
 
     // PDSA Setup
     scheduleManager.assignEvent('2024-03-19', 0, 'RW');
     scheduleManager.assignEvent('2024-03-19', 1, 'RT');
     scheduleManager.assignEvent('2024-03-19', 2, 'KW');
+    scheduleManager.assignEvent('2024-04-01', 2, 'KW');
     //console.log(scheduleManager.serializeSchedule());
 
     
