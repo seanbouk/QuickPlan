@@ -86,9 +86,7 @@ class ScheduleManager {
         
         // Use the formatted date for the rest of the function
         if (!this.employees.includes(employeeName)) {
-            if(!employeeName) {
-                console.log("null");
-            } else {
+            if(employeeName) {
                 console.log('Invalid employee name', formattedDate, employeeName);
                 return;
             }
