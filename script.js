@@ -225,7 +225,7 @@ $(document).ready(function() {
 
     // Set event names as provided in your example
     const eventNames = [
-        "0820-0830", 
+        "Vet Team Leader", "0820-0830", 
         "AM Consult 1", "AM Consult 2", "AM Consult 3", "AM Consult 4", "AM Consult 5",
         "AM Ops 1", "AM Ops 2", "AM Ops 3",
         "PM Consult 1", "PM Consult 2", "PM Consult 3", "PM Consult 4", "PM Consult 5",
@@ -254,17 +254,17 @@ $(document).ready(function() {
     }
 
     // PDSA staff
-    addEmployee("RW");
-    addEmployee("ND");
-    addEmployee("AB");
-    addEmployee("HC");
-    addEmployee("KW");
-    addEmployee("DC");
-    addEmployee("MI");
-    addEmployee("SBC");
-    addEmployee("JW");
-    addEmployee("JB");
-    addEmployee("RT");
+    addEmployee("RW");//Mon-Thu long days
+    addEmployee("ND");//Mon-Thu long days
+    addEmployee("AB");//mon, tue (not working), thu, fri
+    addEmployee("HC");//mon-fri
+    addEmployee("KW");//mon, tue, wed (not working), fri
+    addEmployee("DC");//mon-fri - when does he work?
+    addEmployee("MI");//4 days - off monday morning friday afternoon?
+    addEmployee("SBC");//mon-fri
+    addEmployee("JW");//mon, tue, wed, fri - one thur in four - 6 or 8 hours?
+    addEmployee("JB");//mon, wed, fri
+    addEmployee("RT");//tue-fri
 
     loadScheduleFromCookie();
     
