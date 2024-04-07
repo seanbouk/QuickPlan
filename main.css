@@ -95,6 +95,7 @@ li {
     margin: 0 5px 5px 5px;
     transition: background-color 0.3s;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 li:hover {
