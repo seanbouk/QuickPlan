@@ -67,6 +67,8 @@ $(document).ready(function() {
         }
 
         fillTableWithWeekData(startDate);
+
+        saveScheduleToCookie();
     };
 
     const getWeekNumber = function(d) {
@@ -202,6 +204,25 @@ $(document).ready(function() {
         
     });
 
+    function saveScheduleToCookie() {
+        const serializedSchedule = scheduleManager.serializeSchedule();
+        const daysToExpire = 365 * 10;
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + expiryDate.toUTCString();
+        
+        //console.log("schedule=" + encodeURIComponent(serializedSchedule) + ";" + expires + ";path=/");
+        localStorage.setItem('scheduleManager', encodeURIComponent(serializedSchedule));
+    }
+
+    function loadScheduleFromCookie() {
+        const scheduleCookie = localStorage.getItem('scheduleManager');
+        if (scheduleCookie) {
+            const serializedSchedule = decodeURIComponent(scheduleCookie);
+            scheduleManager.loadSchedule(serializedSchedule);
+        }
+    }
+
     // Set event names as provided in your example
     const eventNames = [
         "0820-0830", 
@@ -245,13 +266,7 @@ $(document).ready(function() {
     addEmployee("JB");
     addEmployee("RT");
 
-    // PDSA Setup
-    scheduleManager.assignEvent('2024-03-19', 0, 'RW');
-    scheduleManager.assignEvent('2024-03-19', 1, 'RT');
-    scheduleManager.assignEvent('2024-03-19', 2, 'KW');
-    scheduleManager.assignEvent('2024-04-01', 2, 'KW');
-    //console.log(scheduleManager.serializeSchedule());
-
+    loadScheduleFromCookie();
     
     updateSchedule(weekOffset);
 
