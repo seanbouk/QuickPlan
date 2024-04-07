@@ -65,9 +65,14 @@ tbody tr:hover td {
 }
 
 tbody tr:hover td:hover {
-    background-color: #EF368A;
-    color: white;
+    /*background-color: #EF368A;
+    color: white;*/
     cursor: pointer;
+    box-shadow: inset 0px 0px 0px 2px #EF368A;
+}
+
+.blocked {
+    background-color: #ddd !important;
 }
 
 .container {

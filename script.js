@@ -1,6 +1,10 @@
 import ScheduleManager from './schedule-manager.js';
 
 $(document).ready(function() {
+    $(document).on('contextmenu', function(event) {
+        event.preventDefault();
+    });
+
     const updateTableHeaders = function(startDate) {
         const headers = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         for (let i = 0; i < headers.length; i++) {
@@ -28,7 +32,12 @@ $(document).ready(function() {
                     weekData[date].forEach((event, eventIndex) => {
                         const cellSelector = `tr:eq(${eventIndex + 1}) td:eq(${dayIndex + 1})`;
                         const eventText = event.assignedTo ? `${event.assignedTo}` : "";
-                        $(cellSelector).text(eventText);
+
+                        if(eventText == -1) {
+                            $(cellSelector).addClass('blocked');
+                        } else {
+                            $(cellSelector).text(eventText);
+                        }
                     });
                 }
                 dayIndex++;
@@ -130,27 +139,53 @@ $(document).ready(function() {
         }
     }
 
-    $('#schedule').on('click', 'td', function() {
-        // Get the text of the currently highlighted list item
-        const highlightedText = $('#players .highlighted').text();
+    $('#schedule').on('mousedown', 'td', function(event) {
+        switch (event.which) {
+            case 1:
+                // Get the text of the currently highlighted list item
+                const highlightedText = $('#players .highlighted').text();
 
-        // Check if clicked cell is in the leftmost column and there's highlighted text
-        if ($(this).index() === 0 && highlightedText) {
-            // Fill all cells to the right in the same row with the highlighted text
-            for (let i = 0; i < 5; i++){
-                const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
-                startDate.setDate(startDate.getDate()+i);
-                scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
-            }
-            updateSchedule(weekOffset);
+                // Check if clicked cell is in the leftmost column and there's highlighted text
+                if ($(this).index() === 0 && highlightedText) {
+                    // Fill all cells to the right in the same row with the highlighted text
+                    for (let i = 0; i < 5; i++){
+                        const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                        startDate.setDate(startDate.getDate()+i);
+                        scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+                    }
+                    updateSchedule(weekOffset);
+                }
+                // Ensure the clicked cell is not in the leftmost column
+                else if ($(this).index() !== 0) {
+                    const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                    startDate.setDate(startDate.getDate()+$(this).index()-1);
+                    scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+                    updateSchedule(weekOffset);
+                }
+                break;
+            case 2:
+                console.log("middle");
+                break;
+            case 3:
+                if ($(this).index() === 0) {
+                    // Fill all cells to the right in the same row with the highlighted text
+                    for (let i = 0; i < 5; i++){
+                        const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                        startDate.setDate(startDate.getDate()+i);
+                        scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), null);
+                    }
+                    updateSchedule(weekOffset);
+                }
+                else {
+                    const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                    startDate.setDate(startDate.getDate()+$(this).index()-1);
+                    scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), null);
+                    updateSchedule(weekOffset);
+                }
+                break;
         }
-        // Ensure the clicked cell is not in the leftmost column
-        else if ($(this).index() !== 0) {
-            const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
-            startDate.setDate(startDate.getDate()+$(this).index()-1);
-            scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
-            updateSchedule(weekOffset);
-        }
+
+        
     });
 
     // Set event names as provided in your example

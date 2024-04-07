@@ -86,8 +86,12 @@ class ScheduleManager {
         
         // Use the formatted date for the rest of the function
         if (!this.employees.includes(employeeName)) {
-            console.log('Invalid employee name', formattedDate, employeeName);
-            return;
+            if(!employeeName) {
+                console.log("null");
+            } else {
+                console.log('Invalid employee name', formattedDate, employeeName);
+                return;
+            }
         }
     
         if (!this.schedule[formattedDate]) {
@@ -96,7 +100,11 @@ class ScheduleManager {
     
         const event = this.schedule[formattedDate].find(event => event.index === eventIndex);
         if (event) {
-            event.assignedTo = employeeName;
+            if (employeeName) {
+                event.assignedTo = employeeName;
+            } else {
+                event.assignedTo = -1;
+            }
         } else {
             console.log('Event not found');
         }
