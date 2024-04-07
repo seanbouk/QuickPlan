@@ -11,22 +11,22 @@ body {
 }
 
 button {
-    background-color: #ffcccb; /* A soft pink background */
+    background-color: #ffcccb; 
     color: #333;
     border: none;
     padding: 10px 15px;
     margin: 5px;
-    border-radius: 5px; /* Rounds the corners of the buttons */
-    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 
 button:hover {
-    background-color: #EF368A; /* A slightly darker pink on hover */
+    background-color: #EF368A; 
     color: white;
 }
 
 #weekInfo {
-    color: #1B8D8A; /* Teal color for the pagination text */
+    color: #1B8D8A; 
     margin: 0 10px;
     font-weight: bold;
 }
@@ -38,9 +38,16 @@ table {
 }
 
 th, td {
-    /*border: 1px solid #ddd;*/
     text-align: center;
     padding: 8px;
+}
+
+th:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+th:last-child {
+    border-radius: 0 5px 5px 0;
 }
 
 th {
@@ -48,14 +55,19 @@ th {
     color: #333;
 }
 
-tbody tr:hover {
-    background-color: #ffcccb; /* A soft pink highlight for rows on mouse hover */
+td:not(:empty):not(:first-child) {
+    background-color: #aff0ee; 
 }
 
-td:hover {
-    background-color: #EF368A; /* A very soft pink for cell highlight on hover */
-    cursor: pointer; /* Optional: changes the cursor to indicate interactivity */
+tbody tr:hover td {
+    background-color: #ffcccb;
+    color: #333;
+}
+
+tbody tr:hover td:hover {
+    background-color: #EF368A;
     color: white;
+    cursor: pointer;
 }
 
 .container {
@@ -64,29 +76,25 @@ td:hover {
 }
 
 ol {
-    background-color: #aff0ee; /* Light background color for the list */
-    padding: 5px 0 0 0; /* Removes padding to allow list-style-position to control the numbering */
-    margin: 0 5px 0 0; /* Adds some margin for visual separation */
-    list-style-position: inside; /* Ensures numbers are displayed outside the content area */
-    width: 300px; /* Let the browser calculate the width required */
-    max-width: 100%; /* Ensures the ol does not exceed the bounds of its container */
+    background-color: #aff0ee; 
+    padding: 5px 0 0 0; 
+    margin: 0 5px 0 0;
+    list-style-position: inside;
+    width: 300px;
+    max-width: 100%;
+    border-radius: 5px;
 }
 
 li {
-    padding: 5px 15px; /* Consistent padding for all list items */
+    padding: 5px 15px;
     margin: 0 5px 5px 5px;
-    transition: background-color 0.3s; /* Smooth background color transition */
-    box-sizing: border-box; /* Include padding in the element's total width and height */
+    transition: background-color 0.3s;
+    box-sizing: border-box;
 }
 
-/* Adjusts the highlighted style for consistency */
 .highlighted {
-    background-color: #EF368A; /* Light teal for highlighted items */
-    border-radius: 5px; /* Rounded corners for highlighted items */
-    box-sizing: border-box; /* Ensures padding doesn't affect overall dimensions */
+    background-color: #EF368A;
+    border-radius: 5px;
+    box-sizing: border-box;
     color: white;
-}
-
-.background {
-    background-color: #f2f2f2; /* Light grey background */
 }
