@@ -42,6 +42,10 @@ th, td {
     padding: 8px;
 }
 
+td {
+    background-color: white;
+}
+
 th:first-child {
     border-radius: 5px 0 0 5px;
 }
@@ -65,14 +69,11 @@ tbody tr:hover td {
 }
 
 tbody tr:hover td:hover {
-    /*background-color: #EF368A;
-    color: white;*/
     cursor: pointer;
     box-shadow: inset 0px 0px 0px 2px #EF368A;
 }
 
 .blocked {
-
     background-image: linear-gradient(
         45deg,
         #ddd 25%,
@@ -84,8 +85,7 @@ tbody tr:hover td:hover {
         transparent 100% 
     );
     background-size: 20px 20px;
-
-    box-shadow: inset 0px 0px 0px 2px #ddd;
+    background-attachment: fixed;
 }
 
 .container {
