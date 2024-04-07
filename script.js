@@ -111,6 +111,16 @@ $(document).ready(function() {
             index = 11;
         }
 
+        updateHighlightedPlayer(index);
+    });
+
+    $('#players').on('click', 'li', function() {
+        const index = $(this).index();
+        
+        updateHighlightedPlayer(index);
+    });
+
+    function updateHighlightedPlayer(index) {
         if (index !== -1 && index < $('#players li').length) {
             // Remove highlighting from all list items
             $('#players li').removeClass('highlighted');
@@ -118,7 +128,7 @@ $(document).ready(function() {
             // Highlight the corresponding list item
             $('#players li').eq(index).addClass('highlighted');
         }
-    });
+    }
 
     $('#schedule').on('click', 'td', function() {
         // Get the text of the currently highlighted list item
@@ -195,4 +205,6 @@ $(document).ready(function() {
 
     
     updateSchedule(weekOffset);
+
+    updateHighlightedPlayer(0);
 });
