@@ -164,7 +164,21 @@ $(document).ready(function() {
                 }
                 break;
             case 2:
-                console.log("middle");
+                if ($(this).index() === 0) {
+                    // Fill all cells to the right in the same row with the highlighted text
+                    for (let i = 0; i < 5; i++){
+                        const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                        startDate.setDate(startDate.getDate()+i);
+                        scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), "");
+                    }
+                    updateSchedule(weekOffset);
+                }
+                else {
+                    const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
+                    startDate.setDate(startDate.getDate()+$(this).index()-1);
+                    scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), "");
+                    updateSchedule(weekOffset);
+                }
                 break;
             case 3:
                 if ($(this).index() === 0) {

@@ -98,7 +98,7 @@ class ScheduleManager {
     
         const event = this.schedule[formattedDate].find(event => event.index === eventIndex);
         if (event) {
-            if (employeeName) {
+            if (employeeName !== null) {
                 event.assignedTo = employeeName;
             } else {
                 event.assignedTo = -1;
