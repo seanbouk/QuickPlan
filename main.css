@@ -56,7 +56,7 @@ th {
 }
 
 td:not(:empty):not(:first-child) {
-    background-color: #aff0ee; 
+    background-color: #e2fafa; 
 }
 
 tbody tr:hover td {
@@ -92,8 +92,15 @@ li {
     box-sizing: border-box;
 }
 
+li:hover {
+    background-color: #1B8D8A;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: white;
+}
+
 .highlighted {
-    background-color: #EF368A;
+    background-color: #EF368A !important;
     border-radius: 5px;
     box-sizing: border-box;
     color: white;
