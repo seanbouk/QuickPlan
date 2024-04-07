@@ -231,7 +231,7 @@ $(document).ready(function() {
         "PM Consult 1", "PM Consult 2", "PM Consult 3", "PM Consult 4", "PM Consult 5",
         "PM Ops 1", "PM Ops 2", "PM Ops 3",
         "1800-1815",
-        "Huddersfield 1", "Huddersfield 2",
+        "Huddersfield\u00A01", "Huddersfield\u00A02",
         "Off 1", "Off 2", "Off 3", "Off 4"
     ];
 

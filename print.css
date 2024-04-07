@@ -1,0 +1,25 @@
+@media print {
+    /* Hide ordered lists and buttons */
+    ol, button {
+      display: none !important;
+    }
+  
+    /* Style the table to fill the width of the page */
+    table {
+      width: 100%;
+      max-width: 100%;
+      page-break-inside: auto;
+    }
+  
+    /* Ensure table rows do not break across pages */
+    tr    { page-break-inside: avoid; page-break-after: auto; }
+  
+    /* Ensure table headers are repeated if the table spans over two pages */
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+
+    /* Hide box-shadow for table cells on hover */
+    tbody tr:hover td:hover {
+    box-shadow: none;
+    }
+  }
