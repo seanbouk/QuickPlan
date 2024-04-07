@@ -1,5 +1,8 @@
 body {
     font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
 #header {
@@ -7,19 +10,52 @@ body {
     text-align: center;
 }
 
+button {
+    background-color: #ffcccb; /* A soft pink background */
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px; /* Rounds the corners of the buttons */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+}
+
+button:hover {
+    background-color: #EF368A; /* A slightly darker pink on hover */
+    color: white;
+}
+
+#weekInfo {
+    color: #1B8D8A; /* Teal color for the pagination text */
+    margin: 0 10px;
+    font-weight: bold;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 th, td {
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     text-align: center;
     padding: 8px;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #1B8D8A;
+    color: #333;
+}
+
+tbody tr:hover {
+    background-color: #ffcccb; /* A soft pink highlight for rows on mouse hover */
+}
+
+td:hover {
+    background-color: #EF368A; /* A very soft pink for cell highlight on hover */
+    cursor: pointer; /* Optional: changes the cursor to indicate interactivity */
+    color: white;
 }
 
 .container {
@@ -27,10 +63,30 @@ th {
     justify-content: start;
 }
 
-ol, #schedule {
-    margin: 10px;
+ol {
+    background-color: #aff0ee; /* Light background color for the list */
+    padding: 5px 0 0 0; /* Removes padding to allow list-style-position to control the numbering */
+    margin: 0 5px 0 0; /* Adds some margin for visual separation */
+    list-style-position: inside; /* Ensures numbers are displayed outside the content area */
+    width: 300px; /* Let the browser calculate the width required */
+    max-width: 100%; /* Ensures the ol does not exceed the bounds of its container */
 }
 
+li {
+    padding: 5px 15px; /* Consistent padding for all list items */
+    margin: 0 5px 5px 5px;
+    transition: background-color 0.3s; /* Smooth background color transition */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+/* Adjusts the highlighted style for consistency */
 .highlighted {
-    background-color: yellow; /* Choose your highlight color */
+    background-color: #EF368A; /* Light teal for highlighted items */
+    border-radius: 5px; /* Rounded corners for highlighted items */
+    box-sizing: border-box; /* Ensures padding doesn't affect overall dimensions */
+    color: white;
+}
+
+.background {
+    background-color: #f2f2f2; /* Light grey background */
 }
