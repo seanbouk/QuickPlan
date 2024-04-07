@@ -211,7 +211,6 @@ $(document).ready(function() {
         expiryDate.setTime(expiryDate.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
         const expires = "expires=" + expiryDate.toUTCString();
         
-        //console.log("schedule=" + encodeURIComponent(serializedSchedule) + ";" + expires + ";path=/");
         localStorage.setItem('scheduleManager', encodeURIComponent(serializedSchedule));
     }
 
@@ -223,7 +222,6 @@ $(document).ready(function() {
         }
     }
 
-    // Set event names as provided in your example
     const eventNames = [
         "Vet Team Leader", "0820-0830", 
         "AM Consult 1", "AM Consult 2", "AM Consult 3", "AM Consult 4", "AM Consult 5",
@@ -235,14 +233,11 @@ $(document).ready(function() {
         "Off 1", "Off 2", "Off 3", "Off 4"
     ];
 
-    // Initialize ScheduleManager with 18 events per day
     const scheduleManager = new ScheduleManager(eventNames.length);
 
-    // Example: Adding a week starting from a specific date
     const weekStartDate = getMonday(weekOffset);
     scheduleManager.addWeek(weekStartDate);
 
-    // Initializing events for a week with names
     for (let i = 0; i < 7; i++) {
         const day = new Date(weekStartDate);
         day.setDate(day.getDate() + i);
