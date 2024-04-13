@@ -5,8 +5,8 @@ class ScheduleManager {
         this.schedule = {};
     }
 
-    addEmployee(employeeName) {
-        this.employees.push(employeeName);
+    addEmployee(employeeName, mon, tue, wed, thu, fri) {
+        this.employees.push([employeeName, mon, tue, wed, thu, fri]);
     }
 
     getPreviousMonday(date) {
@@ -85,7 +85,7 @@ class ScheduleManager {
         const formattedDate = `${dateObj.getFullYear()}-${month}-${day}`;
         
         // Use the formatted date for the rest of the function
-        if (!this.employees.includes(employeeName)) {
+        if (!this.employees.some(([name]) => name === employeeName)) {
             if(employeeName) {
                 console.log('Invalid employee name', formattedDate, employeeName);
                 return;

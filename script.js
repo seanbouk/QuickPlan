@@ -249,17 +249,16 @@ $(document).ready(function() {
     }
 
     // PDSA staff
-    addEmployee("RW");//Mon-Thu long days
-    addEmployee("ND");//Mon-Thu long days
-    addEmployee("AB");//mon, tue (not working), thu, fri
-    addEmployee("HC");//mon-fri
-    addEmployee("KW");//mon, tue, wed (not working), fri
-    addEmployee("DC");//mon-fri - when does he work?
-    addEmployee("MI");//4 days - off monday morning friday afternoon?
-    addEmployee("SBC");//mon-fri
-    addEmployee("JW");//mon, tue, wed, fri - one thur in four - 6 or 8 hours?
-    addEmployee("JB");//mon, wed, fri
-    addEmployee("RT");//tue-fri
+    addEmployee("RW", 9, 9, 9, 9, 0);//Mon-Thu long days
+    addEmployee("ND", 9, 9, 9, 9, 0);//Mon-Thu long days
+    addEmployee("AB", 7.5, 7.5, 0, 7.5, 7.5);//mon, tue (not working), thu, fri
+    addEmployee("HC", 7.5, 7.5, 7.5, 7.5, 7.5);//mon-fri
+    addEmployee("KW", 7.5, 7.5, 7.5, 0, 7.5);//mon, tue, wed (not working), fri
+    addEmployee("MI", 3.75, 7.5, 7.5, 7.5, 3.75);//4 days - off monday morning friday afternoon
+    addEmployee("SBC", 7.5, 7.5, 7.5, 7.5, 7.5);//mon-fri
+    addEmployee("JW", 7.5, 7.5, 7.5, 0, 7.5);//mon, tue, wed, fri - one thur in four - 6 or 8 hours?
+    addEmployee("JB", 7.5, 0, 7.5, 0, 7.5);//mon, wed, fri
+    addEmployee("RT", 0, 7.5, 7.5, 7.5, 7.5);//tue-fri
 
     loadScheduleFromCookie();
     
