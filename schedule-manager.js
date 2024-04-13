@@ -6,7 +6,17 @@ class ScheduleManager {
     }
 
     addEmployee(employeeName, mon, tue, wed, thu, fri) {
+        console.log(employeeName, mon, tue, wed, thu, fri);
         this.employees.push([employeeName, mon, tue, wed, thu, fri]);
+    }
+
+    getWorkingHours(employeeName, day) {
+        if(this.employees.some(([name]) => name === employeeName)) {
+            const employee = this.employees.find(([name]) => name === employeeName);
+            return employee[day];
+        } else {
+            return "";
+        }    
     }
 
     getPreviousMonday(date) {

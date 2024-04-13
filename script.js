@@ -37,6 +37,9 @@ $(document).ready(function() {
                             $(cellSelector).addClass('blocked');
                         } else {
                             $(cellSelector).text(eventText);
+                            if(eventText) {
+                                $(cellSelector).append($('<span>').addClass('note').text(scheduleManager.getWorkingHours(eventText, dayIndex+1)));
+                            }
                         }
                     });
                 }
@@ -88,8 +91,8 @@ $(document).ready(function() {
         return { week: weekNumber, year: weekYear };
     };
 
-    function addEmployee(name) {
-        scheduleManager.addEmployee(name); // Add to the schedule manager
+    function addEmployee(name, mon, tue, wed, thu, fri) {
+        scheduleManager.addEmployee(name, mon, tue, wed, thu, fri); // Add to the schedule manager
         $('#players').append(`<li>${name}</li>`); // Add to the ordered list
     }
 
