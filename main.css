@@ -77,7 +77,7 @@ tbody tr:hover td:hover {
     font-size: smaller;
     font-weight: bold;
     color: #EF368A;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .blocked {

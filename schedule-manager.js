@@ -6,7 +6,6 @@ class ScheduleManager {
     }
 
     addEmployee(employeeName, mon, tue, wed, thu, fri) {
-        console.log(employeeName, mon, tue, wed, thu, fri);
         this.employees.push([employeeName, mon, tue, wed, thu, fri]);
     }
 

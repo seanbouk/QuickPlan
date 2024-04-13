@@ -1,4 +1,5 @@
 import ScheduleManager from './schedule-manager.js';
+import { getWorkingHours } from './getWorkingHours.js';
 
 $(document).ready(function() {
     $(document).on('contextmenu', function(event) {
@@ -38,7 +39,8 @@ $(document).ready(function() {
                         } else {
                             $(cellSelector).text(eventText);
                             if(eventText) {
-                                $(cellSelector).append($('<span>').addClass('note').text(scheduleManager.getWorkingHours(eventText, dayIndex+1)));
+                                const workingHours = getWorkingHours(eventText, date, event.name, scheduleManager);
+                                $(cellSelector).append($('<span>').addClass('note').text(workingHours));
                             }
                         }
                     });
@@ -219,6 +221,7 @@ $(document).ready(function() {
 
     function loadScheduleFromCookie() {
         const scheduleCookie = localStorage.getItem('scheduleManager');
+        //console.log(scheduleCookie);
         if (scheduleCookie) {
             const serializedSchedule = decodeURIComponent(scheduleCookie);
             scheduleManager.loadSchedule(serializedSchedule);
