@@ -23,6 +23,7 @@ $(document).ready(function() {
     }
 
     const fillTableWithWeekData = function(weekStartDate) {
+        console.log(scheduleManager);
         const weekData = scheduleManager.getWeekData(weekStartDate);
         const tbody = $('#schedule tbody');
         
@@ -239,20 +240,10 @@ $(document).ready(function() {
         "Off 1", "Off 2", "Off 3", "Off 4"
     ];
 
-    const scheduleManager = new ScheduleManager(eventNames.length);
+    const scheduleManager = new ScheduleManager(eventNames);
 
     const weekStartDate = getMonday(weekOffset);
     scheduleManager.addWeek(weekStartDate);
-
-    for (let i = 0; i < 7; i++) {
-        const day = new Date(weekStartDate);
-        day.setDate(day.getDate() + i);
-        const dayKey = day.toISOString().split('T')[0];
-
-        scheduleManager.schedule[dayKey].forEach((event, index) => {
-            event.name = eventNames[index % eventNames.length];
-        });
-    }
 
     // PDSA staff
     addEmployee("RW", 9, 9, 9, 9, 0);//Mon-Thu long days

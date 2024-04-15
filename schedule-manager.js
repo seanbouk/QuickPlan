@@ -1,8 +1,13 @@
 class ScheduleManager {
-    constructor(eventsPerDay) {
+    constructor(events) {
+        const eventsPerDay = events.length
+
         this.eventsPerDay = eventsPerDay;
         this.employees = [];
         this.schedule = {};
+        this.events = events;
+
+        console.log(this.eventsPerDay);
     }
 
     addEmployee(employeeName, mon, tue, wed, thu, fri) {
@@ -35,13 +40,14 @@ class ScheduleManager {
     }
 
     addWeek(date) {
+        console.log("add weej");
         const weekStartDate = this.getPreviousMonday(new Date(date));
         for (let i = 0; i < 7; i++) {
             const day = new Date(weekStartDate);
             day.setDate(day.getDate() + i);
             const dayKey = day.toISOString().split('T')[0];
             this.schedule[dayKey] = Array.from({ length: this.eventsPerDay }, (_, index) => ({
-                name: '',
+                name: this.events[index],
                 index,
                 assignedTo: null,
             }));
