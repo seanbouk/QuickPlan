@@ -1,5 +1,6 @@
 import ScheduleManager from './schedule-manager.js';
 import { getWorkingHours } from './getWorkingHours.js';
+import { minutesToMilitaryTime } from './getWorkingHours.js';
 
 $(document).ready(function() {
     $(document).on('contextmenu', function(event) {
@@ -23,7 +24,6 @@ $(document).ready(function() {
     }
 
     const fillTableWithWeekData = function(weekStartDate) {
-        console.log(scheduleManager);
         const weekData = scheduleManager.getWeekData(weekStartDate);
         const tbody = $('#schedule tbody');
         
@@ -41,7 +41,13 @@ $(document).ready(function() {
                             $(cellSelector).text(eventText);
                             if(eventText) {
                                 const workingHours = getWorkingHours(eventText, date, event.name, scheduleManager);
-                                $(cellSelector).append($('<span>').addClass('note').text(workingHours));
+
+                                if(workingHours[0] && workingHours[1]) {
+                                    const subHeading = minutesToMilitaryTime(workingHours[0]) + "-" + minutesToMilitaryTime(workingHours[1]);
+                                    $(cellSelector).append($('<span>').addClass('note').text(subHeading));
+                                } else {
+                                    $(cellSelector).append($('<span>').addClass('note').text("-"));
+                                }
                             }
                         }
                     });

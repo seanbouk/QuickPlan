@@ -26,23 +26,22 @@ export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
 
     switch (eventType) {
         case "Vet Team Leader":
-            return "0900-1730";
+            return [540, 1050];
             break;
         case "Open":
-            return "0820-0830";
+            return [500, 510];
             break;
         case "AM":
             dayHours = scheduleManager.getWorkingHours(employeeNameName, day);
-            console.log(dayHours);
             switch (dayHours) {
                 case 9:
-                    return "0830-1330";
+                    return [510, 810];
                     break;
                 case 7.5:
-                    return "0900-1300";
+                    return [540, 780];
                     break;
                 case 0:
-                    return "-";
+                    return [];
                     break;
                 default:
                     console.log("Day hours value is not recognized.", employeeNameName, day, dayHours);
@@ -51,16 +50,15 @@ export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
             break;
         case "PM":
             dayHours = scheduleManager.getWorkingHours(employeeNameName, day);
-            console.log(dayHours);
             switch (dayHours) {
                 case 9:
-                    return "1400-1800";
+                    return [840, 1080];
                     break;
                 case 7.5:
-                    return "1400-1730";
+                    return [840, 1050];
                     break;
                 case 0:
-                    return "-";
+                    return [];
                     break;
                 default:
                     console.log("Day hours value is not recognized.", employeeNameName, day, dayHours);
@@ -68,16 +66,24 @@ export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
             return scheduleManager.getWorkingHours(employeeNameName, day);
             break;
         case "Close":
-            return "1800-1815"
+            return [1080, 1095];
             break;
         case "Huddersfield":
-            return "0900-1730";
+            return [540, 1050];
             break;
         case "Off":
-            return "-";
+            return [];
             break;
         default:
             console.log("Unknown event type.");
             return(-1);
     }
+}
+
+export function minutesToMilitaryTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    const hoursFormatted = hours.toString().padStart(2, '0');
+    const minsFormatted = mins.toString().padStart(2, '0');
+    return hoursFormatted + minsFormatted;
 }

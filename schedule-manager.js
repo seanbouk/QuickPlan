@@ -6,8 +6,6 @@ class ScheduleManager {
         this.employees = [];
         this.schedule = {};
         this.events = events;
-
-        console.log(this.eventsPerDay);
     }
 
     addEmployee(employeeName, mon, tue, wed, thu, fri) {
@@ -40,7 +38,6 @@ class ScheduleManager {
     }
 
     addWeek(date) {
-        console.log("add weej");
         const weekStartDate = this.getPreviousMonday(new Date(date));
         for (let i = 0; i < 7; i++) {
             const day = new Date(weekStartDate);
