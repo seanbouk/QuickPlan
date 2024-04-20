@@ -55,7 +55,52 @@ $(document).ready(function() {
                 dayIndex++;
             }
         });
+
+        scheduleManager.employees.forEach((_, index) => {
+            updateEmployeeTimes(index);
+        });
     };
+    
+    function updateEmployeeTimes(index) {
+        const employeeName = scheduleManager.getEmployeeNameByIndex(index);
+        let currentDate = new Date(getMonday(weekOffset));
+        const listItem = $('#players li').eq(index);
+        listItem.empty();
+        listItem.text(employeeName + " ");
+
+        for (let i = 1; i <= 5; i++) {
+            // Get the scheduled minutes and working minutes
+            const scheduledMins = scheduleManager.getScheduledHours(employeeName, currentDate);
+            const workingMins = scheduleManager.getWorkingHours(employeeName, i);
+        
+            // Convert scheduled minutes to hours
+            const scheduledHours = scheduledMins / 60;
+        
+            // Determine the class based on the comparison
+            let className = '';
+            if (scheduledMins < workingMins) {
+                className = 'under';
+            } else if (scheduledMins === workingMins) {
+                className = 'same';
+            } else {
+                className = 'over';
+            }
+        
+            // Prepare the content to be added to the list item
+            const content = `<span class="${className}">${scheduledHours.toFixed(1)}</span>`;
+        
+            // Append the content to the list item
+            listItem.append(content);
+        
+            // If not the last item, append a comma
+            if (i < 5) {
+                listItem.append(" ");
+            }
+        
+            // Move to the next day
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+    }
 
     const updateSchedule = function(weekOffset) {
         const startDate = getMonday(weekOffset);
@@ -147,45 +192,6 @@ $(document).ready(function() {
         if (index !== -1 && index < $('#players li').length) {
             $('#players li').removeClass('highlighted');
             $('#players li').eq(index).addClass('highlighted');
-
-            const employeeName = scheduleManager.getEmployeeNameByIndex(index);
-            let currentDate = new Date(getMonday(weekOffset));
-            const listItem = $('#players li').eq(index);
-            listItem.empty();
-            listItem.text(employeeName + " ");
-
-            for (let i = 1; i <= 5; i++) {
-                // Get the scheduled minutes and working minutes
-                const scheduledMins = scheduleManager.getScheduledHours(employeeName, currentDate);
-                const workingMins = scheduleManager.getWorkingHours(employeeName, i);
-            
-                // Convert scheduled minutes to hours
-                const scheduledHours = scheduledMins / 60;
-            
-                // Determine the class based on the comparison
-                let className = '';
-                if (scheduledMins < workingMins) {
-                    className = 'under';
-                } else if (scheduledMins === workingMins) {
-                    className = 'same';
-                } else {
-                    className = 'over';
-                }
-            
-                // Prepare the content to be added to the list item
-                const content = `<span class="${className}">${scheduledHours.toFixed(1)}</span>`;
-            
-                // Append the content to the list item
-                listItem.append(content);
-            
-                // If not the last item, append a comma
-                if (i < 5) {
-                    listItem.append(" ");
-                }
-            
-                // Move to the next day
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
         }
     }
 
@@ -193,15 +199,15 @@ $(document).ready(function() {
         switch (event.which) {
             case 1:
                 // Get the text of the currently highlighted list item
-                const highlightedText = $('#players .highlighted').text();
+                const employeeName = scheduleManager.getEmployeeNameByIndex($('#players .highlighted').index());
 
                 // Check if clicked cell is in the leftmost column and there's highlighted text
-                if ($(this).index() === 0 && highlightedText) {
+                if ($(this).index() === 0 && employeeName) {
                     // Fill all cells to the right in the same row with the highlighted text
                     for (let i = 0; i < 5; i++){
                         const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
                         startDate.setDate(startDate.getDate()+i);
-                        scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+                        scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), employeeName);
                     }
                     updateSchedule(weekOffset);
                 }
@@ -209,7 +215,7 @@ $(document).ready(function() {
                 else if ($(this).index() !== 0) {
                     const startDate = new Date(getMonday(weekOffset));//assumes you're editing the current week
                     startDate.setDate(startDate.getDate()+$(this).index()-1);
-                    scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), highlightedText);
+                    scheduleManager.assignEvent(startDate, $(this).parent('tr').index(), employeeName);
                     updateSchedule(weekOffset);
                 }
                 break;
