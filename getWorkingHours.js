@@ -1,6 +1,6 @@
 import ScheduleManager from './schedule-manager.js';
 
-export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
+export function getWorkingHours(employeeName, date, task, scheduleManager) {
     const day = new Date(date).getDay();
 
     let eventType = "";
@@ -19,7 +19,7 @@ export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
     } else if (task.startsWith("Off")) {
         eventType = "Off"
     } else {
-        console.log("ERROR: task unknown: ", employeeNameName, date, task, scheduleManager);
+        console.log("ERROR: task unknown: ", employeeName, date, task, scheduleManager);
     }
 
     let dayHours = 0;
@@ -32,38 +32,38 @@ export function getWorkingHours(employeeNameName, date, task, scheduleManager) {
             return [500, 510];
             break;
         case "AM":
-            dayHours = scheduleManager.getWorkingHours(employeeNameName, day);
+            dayHours = scheduleManager.getWorkingHours(employeeName, day);
             switch (dayHours) {
-                case 9:
+                case 540:
                     return [510, 810];
                     break;
-                case 7.5:
+                case 450:
                     return [540, 780];
                     break;
                 case 0:
                     return [];
                     break;
                 default:
-                    console.log("Day hours value is not recognized.", employeeNameName, day, dayHours);
+                    console.log("Day hours value is not recognized.", employeeName, day, dayHours);
             }
-            return scheduleManager.getWorkingHours(employeeNameName, day);
+            return scheduleManager.getWorkingHours(employeeName, day);
             break;
         case "PM":
-            dayHours = scheduleManager.getWorkingHours(employeeNameName, day);
+            dayHours = scheduleManager.getWorkingHours(employeeName, day);
             switch (dayHours) {
-                case 9:
+                case 540:
                     return [840, 1080];
                     break;
-                case 7.5:
+                case 450:
                     return [840, 1050];
                     break;
                 case 0:
                     return [];
                     break;
                 default:
-                    console.log("Day hours value is not recognized.", employeeNameName, day, dayHours);
+                    console.log("Day hours value is not recognized.", employeeName, day, dayHours);
             }
-            return scheduleManager.getWorkingHours(employeeNameName, day);
+            return scheduleManager.getWorkingHours(employeeName, day);
             break;
         case "Close":
             return [1080, 1095];

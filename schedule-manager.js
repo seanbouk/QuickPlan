@@ -1,3 +1,5 @@
+import { getWorkingHours } from './getWorkingHours.js';
+
 class ScheduleManager {
     constructor(events) {
         const eventsPerDay = events.length
@@ -12,6 +14,11 @@ class ScheduleManager {
         this.employees.push([employeeName, mon, tue, wed, thu, fri]);
     }
 
+    getEmployeeNameByIndex(index) {
+        return this.employees[index][0];
+    }
+
+    //minutes scheduled to work on a weekday, monday being 1
     getWorkingHours(employeeName, day) {
         if(this.employees.some(([name]) => name === employeeName)) {
             const employee = this.employees.find(([name]) => name === employeeName);
@@ -19,6 +26,28 @@ class ScheduleManager {
         } else {
             return "";
         }    
+    }
+
+    getScheduledHours(employeeName, date) {
+        // Convert date to YYYY-MM-DD format
+        const formattedDate = date.toISOString().split('T')[0];
+        
+        // Retrieve events for the given date
+        const events = this.schedule[formattedDate] || [];
+        
+        // Filter events to find those assigned to the specified employee
+        const assignedEvents = events.filter(event => event.assignedTo === employeeName);
+
+        // Calculate total working minutes
+        let totalMinutes = 0;
+        for (let event of assignedEvents) {
+            const hoursArray = getWorkingHours(employeeName, date, event.name, this);
+            if (hoursArray.length === 2) {
+                totalMinutes += hoursArray[1] - hoursArray[0]; // Calculate difference and add to total
+            }
+        }
+
+        return totalMinutes; // Return the total minutes worked
     }
 
     getPreviousMonday(date) {

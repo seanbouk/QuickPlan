@@ -145,11 +145,47 @@ $(document).ready(function() {
 
     function updateHighlightedPlayer(index) {
         if (index !== -1 && index < $('#players li').length) {
-            // Remove highlighting from all list items
             $('#players li').removeClass('highlighted');
-
-            // Highlight the corresponding list item
             $('#players li').eq(index).addClass('highlighted');
+
+            const employeeName = scheduleManager.getEmployeeNameByIndex(index);
+            let currentDate = new Date(getMonday(weekOffset));
+            const listItem = $('#players li').eq(index);
+            listItem.empty();
+            listItem.text(employeeName + " ");
+
+            for (let i = 1; i <= 5; i++) {
+                // Get the scheduled minutes and working minutes
+                const scheduledMins = scheduleManager.getScheduledHours(employeeName, currentDate);
+                const workingMins = scheduleManager.getWorkingHours(employeeName, i);
+            
+                // Convert scheduled minutes to hours
+                const scheduledHours = scheduledMins / 60;
+            
+                // Determine the class based on the comparison
+                let className = '';
+                if (scheduledMins < workingMins) {
+                    className = 'under';
+                } else if (scheduledMins === workingMins) {
+                    className = 'same';
+                } else {
+                    className = 'over';
+                }
+            
+                // Prepare the content to be added to the list item
+                const content = `<span class="${className}">${scheduledHours.toFixed(1)}</span>`;
+            
+                // Append the content to the list item
+                listItem.append(content);
+            
+                // If not the last item, append a comma
+                if (i < 5) {
+                    listItem.append(" ");
+                }
+            
+                // Move to the next day
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
         }
     }
 
@@ -252,16 +288,16 @@ $(document).ready(function() {
     scheduleManager.addWeek(weekStartDate);
 
     // PDSA staff
-    addEmployee("RW", 9, 9, 9, 9, 0);//Mon-Thu long days
-    addEmployee("ND", 9, 9, 9, 9, 0);//Mon-Thu long days
-    addEmployee("AB", 7.5, 7.5, 0, 7.5, 7.5);//mon, tue (not working), thu, fri
-    addEmployee("HC", 7.5, 7.5, 7.5, 7.5, 7.5);//mon-fri
-    addEmployee("KW", 7.5, 7.5, 7.5, 0, 7.5);//mon, tue, wed (not working), fri
-    addEmployee("MI", 3.75, 7.5, 7.5, 7.5, 3.75);//4 days - off monday morning friday afternoon
-    addEmployee("SBC", 7.5, 7.5, 7.5, 7.5, 7.5);//mon-fri
-    addEmployee("JW", 7.5, 7.5, 7.5, 0, 7.5);//mon, tue, wed, fri - one thur in four - 6 or 8 hours?
-    addEmployee("JB", 7.5, 0, 7.5, 0, 7.5);//mon, wed, fri
-    addEmployee("RT", 0, 7.5, 7.5, 7.5, 7.5);//tue-fri
+    addEmployee("RW", 540, 540, 540, 540, 0);    // Mon-Thu long days
+    addEmployee("ND", 540, 540, 540, 540, 0);    // Mon-Thu long days
+    addEmployee("AB", 450, 450, 0, 450, 450);    // Mon, Tue (not working), Thu, Fri
+    addEmployee("HC", 450, 450, 450, 450, 450);  // Mon-Fri
+    addEmployee("KW", 450, 450, 450, 0, 450);    // Mon, Tue, Wed (not working), Fri
+    addEmployee("MI", 225, 450, 450, 450, 225);  // 4 days - off Monday morning, Friday afternoon
+    addEmployee("SBC", 450, 450, 450, 450, 450); // Mon-Fri
+    addEmployee("JW", 450, 450, 450, 0, 450);    // Mon, Tue, Wed, Fri - one Thu in four - 6 or 8 hours?
+    addEmployee("JB", 450, 0, 450, 0, 450);      // Mon, Wed, Fri
+    addEmployee("RT", 0, 450, 450, 450, 450);    // Tue-Fri
 
     loadScheduleFromCookie();
     

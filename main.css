@@ -131,3 +131,20 @@ li:hover {
     box-sizing: border-box;
     color: white;
 }
+
+.under, .same, .over {
+    font-size: small; 
+    font-weight: bold; 
+}
+
+.under {
+    color: white;
+}
+
+.same {
+    color: #ffcccb; 
+}
+
+.over {
+    color: black;
+}
