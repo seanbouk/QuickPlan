@@ -105,7 +105,7 @@ ol {
     padding: 5px 0 0 0; 
     margin: 0 5px 0 0;
     list-style-position: inside;
-    width: 300px;
+    width: 400px;
     max-width: 100%;
     border-radius: 5px;
 }
@@ -135,13 +135,22 @@ li:hover {
 .under, .same, .over {
     font-size: small; 
     font-weight: bold; 
+    font-family: monospace;
 }
 
 .under {
+    color: #1B8D8A;
+}
+
+li.highlighted .under {
     color: white;
 }
 
 .same {
+    color: #EF368A; 
+}
+
+li.highlighted .same {
     color: #ffcccb; 
 }
 

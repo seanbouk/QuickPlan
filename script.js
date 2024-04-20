@@ -74,7 +74,9 @@ $(document).ready(function() {
             const workingMins = scheduleManager.getWorkingHours(employeeName, i);
         
             // Convert scheduled minutes to hours
-            const scheduledHours = scheduledMins / 60;
+            const hours = Math.floor(scheduledMins / 60);
+            const minutes = scheduledMins % 60;
+            const scheduledHours = `${hours}:${minutes.toString().padStart(2, '0')}`;
         
             // Determine the class based on the comparison
             let className = '';
@@ -87,7 +89,7 @@ $(document).ready(function() {
             }
         
             // Prepare the content to be added to the list item
-            const content = `<span class="${className}">${scheduledHours.toFixed(1)}</span>`;
+            const content = `<span class="${className}">${scheduledHours}</span>`;
         
             // Append the content to the list item
             listItem.append(content);
