@@ -22,4 +22,10 @@
     tbody tr:hover td:hover {
     box-shadow: none;
     }
+
+    .note {
+      font-size: x-small;
+      font-weight: normal;
+      padding-left: 2px;
+    }
   }

@@ -306,6 +306,7 @@ $(document).ready(function() {
     addEmployee("JW", 450, 450, 450, 0, 450);    // Mon, Tue, Wed, Fri - one Thu in four - 6 or 8 hours?
     addEmployee("JB", 450, 0, 450, 0, 450);      // Mon, Wed, Fri
     addEmployee("RT", 0, 450, 450, 450, 450);    // Tue-Fri
+    addEmployee("SA", 0, 450, 450, 450, 0);      // Tue-Thu
 
     loadScheduleFromCookie();
     
